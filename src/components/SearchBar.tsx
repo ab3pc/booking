@@ -16,6 +16,47 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, setFilteredTrips }) => {
     setFilteredTrips(serachTrips);
   };
 
+  const handleDurationSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    let filteredTrips: TripItemType[] | [] = [];
+    switch (e.target.value) {
+      case "0_x_5":
+        filteredTrips = trips.filter((item) => item.duration < 5);
+        break;
+      case "5_x_10":
+        filteredTrips = trips.filter((item) => item.duration < 10);
+        break;
+      case "10_x":
+        filteredTrips = trips.filter((item) => item.duration >= 10);
+        break;
+
+      default:
+        filteredTrips = allTrips;
+        break;
+    }
+    setFilteredTrips(filteredTrips);
+  };
+
+  const handleLevelSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    let filteredTrips: TripItemType[] | [] = [];
+    switch (e.target.value) {
+      case "easy":
+        filteredTrips = trips.filter((item) => item.level === "easy");
+        break;
+      case "moderate":
+        filteredTrips = trips.filter((item) => item.level === "moderate");
+
+        break;
+      case "difficult":
+        filteredTrips = trips.filter((item) => item.level === "difficult");
+        break;
+
+      default:
+        filteredTrips = allTrips;
+        break;
+    }
+    setFilteredTrips(filteredTrips);
+  };
+
   useEffect(() => {
     if (!searchValue) {
       setFilteredTrips(allTrips);
@@ -38,7 +79,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, setFilteredTrips }) => {
         </label>
         <label className="select">
           <span className="visually-hidden">Search by duration</span>
-          <select name="duration">
+          <select name="duration" onChange={handleDurationSelect}>
             <option value="">duration</option>
             <option value="0_x_5">&lt; 5 days</option>
             <option value="5_x_10">&lt; 10 days</option>
@@ -47,7 +88,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, setFilteredTrips }) => {
         </label>
         <label className="select">
           <span className="visually-hidden">Search by level</span>
-          <select name="level">
+          <select name="level" onChange={handleLevelSelect}>
             <option value="">level</option>
             <option value="easy">easy</option>
             <option value="moderate">moderate</option>

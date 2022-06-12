@@ -1,38 +1,59 @@
+import React from "react";
+import { useParams } from "react-router-dom";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import MainSection from "../../components/MainSection";
+import ModalBookTrip from "../../components/ModalBookTrip";
+import { fetchData } from "../../request/bookings";
+import { TripItemType } from "../../types/trip";
 
 const Trip = () => {
+  let { tripId } = useParams();
+  const [tripItem, setTripItem] = React.useState<TripItemType | null>(null);
+  const [showModal, setShowModal] = React.useState<boolean>(false);
+
+  const handleShowModal = React.useCallback(() => {
+    setShowModal(true);
+  }, []);
+
+  React.useEffect(() => {
+    (async () => {
+      const resp = await fetchData("data/tripList.json");
+      const trip = resp.filter((item: TripItemType) => item.id === tripId);
+      setTripItem(trip[0]);
+    })();
+  }, []);
+
   return (
     <>
       <Header />
       <MainSection className="trip-page">
         <div className="trip">
-          <img src="./assets/images/iceland.jpg" className="trip__img" alt={`trip`} />
+          {tripItem && <img src={tripItem.image} className="trip__img" alt={`trip`} />}
+
           <div className="trip__content">
             <div className="trip-info">
-              <h3 className="trip-info__title">Iceland</h3>
+              <h3 className="trip-info__title">{tripItem && tripItem.title}</h3>
               <div className="trip-info__content">
                 <span className="trip-info__duration">
-                  <strong>15</strong> days
+                  <strong>{tripItem && tripItem.duration}</strong> days
                 </span>
-                <span className="trip-info__level">easy</span>
+                <span className="trip-info__level">{tripItem && tripItem.level}</span>
               </div>
             </div>
-            <div className="trip__description">
-              An island is a body of land surrounded by water. Continents are also surrounded by water, but because they
-              are so big, they are not considered islands. Australia, the smallest continent, is more than three times
-              the size of Greenland, the largest island. There are countless islands in the ocean, lakes, and rivers
-              around the world. They vary greatly in size, climate, and the kinds of organisms that inhabit them.
-            </div>
+            <div className="trip__description">{tripItem && tripItem.description}</div>
             <div className="trip-price">
               <span>Price</span>
-              <strong className="trip-price__value">7000 $</strong>
+              <strong className="trip-price__value"> {tripItem && tripItem.price}$</strong>
             </div>
-            <button className="trip__button button">Book a trip</button>
+            <button className="trip__button button" onClick={handleShowModal}>
+              Book a trip
+            </button>
           </div>
         </div>
       </MainSection>
+      {showModal && <ModalBookTrip />}
+
       <Footer />
     </>
   );

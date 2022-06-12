@@ -6,7 +6,11 @@ import SearchBar from "../../components/SearchBar";
 import { fetchData } from "../../request/bookings";
 import { TripItemType } from "../../types/trip";
 
-const Main: React.FC = () => {
+interface MainProps {
+  isAuth: boolean;
+}
+
+const Main: React.FC<MainProps> = ({ isAuth }) => {
   const [trips, setTrips] = React.useState<TripItemType[] | []>([]);
   const [filteredTrips, setFilteredTrips] = React.useState<TripItemType[] | []>([]);
 
@@ -20,7 +24,7 @@ const Main: React.FC = () => {
 
   return (
     <div className="main">
-      <Header />
+      <Header isAuth={isAuth} />
 
       <main>
         <h1 className="visually-hidden">Travel App</h1>

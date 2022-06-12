@@ -1,4 +1,5 @@
 import React from "react";
+
 interface MainSectionProps {
   className: string;
   h1?: string;

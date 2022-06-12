@@ -1,17 +1,16 @@
+import React from "react";
+import footerIcon from "../assets/images/heart.svg";
+
 const Footer = () => {
   return (
     <footer className="footer">
       <span className="footer__text">
-        from{" "}
+        from
         <a className="footer__link" href="https://binary-studio.com">
           binary studio
-        </a>{" "}
+        </a>
         with
-        <img
-          className="footer__icon"
-          src="./assets/images/heart.svg"
-          alt="heart icon"
-        />
+        <img className="footer__icon" src={footerIcon} alt="heart icon" />
       </span>
     </footer>
   );

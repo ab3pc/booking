@@ -13,28 +13,13 @@ const Form: React.FC<FormProps> = ({ type, title, formSubmit }) => {
     formSubmit(true);
   };
   return (
-    <form
-      className="sign-up-form"
-      autoComplete="off"
-      onSubmit={handleFormSubmit}
-    >
+    <form className="sign-up-form" autoComplete="off" onSubmit={handleFormSubmit}>
       <h2 className="sign-up-form__title">{title}</h2>
 
-      <FormInput
-        title="Full name"
-        name="full-name"
-        type="text"
-        isRequired={true}
-      />
+      <FormInput title="Full name" name="full-name" type="text" isRequired={true} />
       <FormInput title="Email" name="email" type="email" isRequired={true} />
       {type === "signUp" ? (
-        <FormInput
-          title="Password"
-          name="password"
-          type="password"
-          isRequired={true}
-          autoComplete="new-password"
-        />
+        <FormInput title="Password" name="password" type="password" isRequired={true} autoComplete="new-password" />
       ) : null}
 
       <button className="button" type="submit">

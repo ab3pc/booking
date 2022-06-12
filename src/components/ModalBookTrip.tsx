@@ -1,6 +1,8 @@
+import React from "react";
+
 const ModalBookTrip = () => {
   return (
-    <div hidden>
+    <div>
       <div className="modal">
         <div className="trip-popup">
           <button className="trip-popup__close">×</button>
@@ -20,14 +22,7 @@ const ModalBookTrip = () => {
             </label>
             <label className="trip-popup__input input">
               <span className="input__heading">Number of guests</span>
-              <input
-                name="guests"
-                type="number"
-                min="1"
-                max="10"
-                value="1"
-                required
-              />
+              <input name="guests" type="number" min="1" max="10" value="1" required />
             </label>
             <span className="trip-popup__total">
               Total: <output className="trip-popup__total-value">4000$</output>

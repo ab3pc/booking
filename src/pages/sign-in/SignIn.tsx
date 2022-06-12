@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 
 interface SignInProps {
   formSubmit: (arg: boolean) => void;
+  isAuth: boolean;
 }
 
-const SignIn: React.FC<SignInProps> = ({ formSubmit }) => {
+const SignIn: React.FC<SignInProps> = ({ formSubmit, isAuth }) => {
   return (
     <>
-      <Header />
+      <Header isAuth={isAuth} />
       <MainSection className="sign-in-page">
         <Form title="Sign In" type="signIn" formSubmit={formSubmit} />
         <span>

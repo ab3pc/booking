@@ -287,6 +287,10 @@ select {
   font-size: var(--font-size-500);
   font-family: "Playfair Display", serif;
   text-decoration: none;
+  transition: 0.2s linear;
+}
+.header__logo:hover {
+  transform: scale(1.05);
 }
 
 .header__nav {
@@ -314,7 +318,18 @@ select {
   min-width: 80px;
   height: 100%;
 }
-
+.nav-header__item a img {
+  transition: all 0.2s;
+}
+.nav-header__item:hover a img {
+  transform: rotate(180deg);
+}
+.nav-header__item .nav-header__inner.profile-nav img {
+  transition: all 0.2s;
+}
+.nav-header__item:hover .nav-header__inner.profile-nav img {
+  transform: scale(1.1);
+}
 /* profile-nav */
 
 .profile-nav {
