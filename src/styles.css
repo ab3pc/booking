@@ -569,6 +569,10 @@ select {
   cursor: pointer;
   opacity: 0.7;
 }
+.trip-popup__close:hover {
+  opacity: 1;
+  color: red;
+}
 
 .trip-popup__form {
   display: flex;

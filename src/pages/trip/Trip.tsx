@@ -15,6 +15,9 @@ const Trip = () => {
   const handleShowModal = React.useCallback(() => {
     setShowModal(true);
   }, []);
+  const handleHideModal = React.useCallback(() => {
+    setShowModal(false);
+  }, []);
 
   React.useEffect(() => {
     (async () => {
@@ -52,7 +55,15 @@ const Trip = () => {
           </div>
         </div>
       </MainSection>
-      {showModal && <ModalBookTrip />}
+      {showModal && tripItem && (
+        <ModalBookTrip
+          title={tripItem.title}
+          price={tripItem.price}
+          duration={tripItem.duration}
+          level={tripItem.level}
+          onClose={handleHideModal}
+        />
+      )}
 
       <Footer />
     </>
