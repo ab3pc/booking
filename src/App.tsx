@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./styles.css";
+import { useState } from "react";
+import Main from "./pages/main/Main";
+import SignUp from "./pages/sign-up/SignUp";
+import SignIn from "./pages/sign-in/SignIn";
+import Trip from "./pages/trip/Trip";
+import Bookings from "./pages/booking/Bookings";
 
-function App() {
+import { Routes, Route } from "react-router-dom";
+
+export default function App() {
+  const [isAuth, setIsAuth] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={isAuth ? <Main /> : <SignIn formSubmit={setIsAuth} />}
+      />
+      <Route path="sing-up" element={<SignUp formSubmit={setIsAuth} />} />
+      <Route path="sing-in" element={<SignIn formSubmit={setIsAuth} />} />
+      <Route path="trip/:tripId" element={<Trip />} />
+      <Route path="bookings" element={<Bookings />} />
+    </Routes>
   );
 }
-
-export default App;
