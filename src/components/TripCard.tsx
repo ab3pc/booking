@@ -2,16 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { TripItemType } from "../types/trip";
 
-const TripCard: React.FC<TripItemType> = ({
-  id,
-  title,
-  description,
-  level,
-  duration,
-  price,
-  image,
-  createdAt
-}) => {
+const TripCard: React.FC<TripItemType> = ({ id, title, level, duration, price, image }) => {
   return (
     <li className="trip-card">
       <img src={image} alt={`trip ${title}`} />

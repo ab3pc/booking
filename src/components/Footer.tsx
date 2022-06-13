@@ -1,7 +1,7 @@
 import React from "react";
 import footerIcon from "../assets/images/heart.svg";
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <span className="footer__text">

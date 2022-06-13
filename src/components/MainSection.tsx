@@ -6,10 +6,10 @@ interface MainSectionProps {
   children: React.ReactNode;
 }
 
-const MainSection: React.FC<MainSectionProps> = ({ className, h1, children }) => {
+const MainSection: React.FC<MainSectionProps> = ({ className, h1 = "Travel App", children }) => {
   return (
     <main className={className}>
-      <h1 className="visually-hidden">Travel App</h1>
+      <h1 className="visually-hidden">{h1}</h1>
       {children}
     </main>
   );

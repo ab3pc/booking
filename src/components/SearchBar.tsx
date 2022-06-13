@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { TripItemType } from "../types/trip";
-import { fullSearch, initilStateTypes } from "../utils/searchLogic";
+import { fullSearch, initialStateTypes } from "../utils/searchLogic";
 
 interface SearchBarProps {
   trips: TripItemType[] | [];
@@ -13,7 +13,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, filteredTrips, setFiltered
   const [selectLevel, setSelectLevel] = useState<string>("");
   const [selectDuration, setSelectDuration] = useState<string>("");
 
-  const initilState: initilStateTypes = {
+  const initialState: initialStateTypes = {
     originalset: [...trips],
     duration: selectDuration,
     level: selectLevel,
@@ -22,9 +22,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, filteredTrips, setFiltered
 
   const handleSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue((prev) => e.target.value);
-
     let searchValues = {
-      ...initilState,
+      ...initialState,
       inputValue: e.target.value,
     };
     const filtered = fullSearch(searchValues);
@@ -33,9 +32,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, filteredTrips, setFiltered
 
   const handleDurationSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectDuration(e.target.value);
-
     let searchValues = {
-      ...initilState,
+      ...initialState,
       duration: e.target.value,
     };
     const filtered = fullSearch(searchValues);
@@ -45,7 +43,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, filteredTrips, setFiltered
   const handleLevelSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectLevel(e.target.value);
     let searchValues = {
-      ...initilState,
+      ...initialState,
       level: e.target.value,
     };
     const filtered = fullSearch(searchValues);
@@ -62,7 +60,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, filteredTrips, setFiltered
             name="search"
             type="search"
             placeholder="search by title"
-            // value={searchValues.inputValue}
+            value={searchValue}
             onChange={handleSearchValue}
           />
         </label>

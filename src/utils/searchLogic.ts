@@ -1,6 +1,6 @@
 import { TripItemType } from "./../types/trip";
 
-export interface initilStateTypes {
+export interface initialStateTypes {
   originalset: TripItemType[] | [];
   duration: string;
   level: string;
@@ -34,7 +34,7 @@ export const filterByDuration = (arr: TripItemType[], key: string) => {
   return filteredArr;
 };
 
-export const fullSearch = (initilState: initilStateTypes) => {
+export const fullSearch = (initilState: initialStateTypes) => {
   let { originalset, duration, level, inputValue } = initilState;
   let filteredArr: TripItemType[] | [] = [];
 

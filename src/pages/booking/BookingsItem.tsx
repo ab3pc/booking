@@ -14,7 +14,7 @@ const BookingsItem: React.FC<BookingsItemProps> = ({ item, onRemove }) => {
     <>
       <li className="booking">
         <h3 className="booking__title">{item.trip.title}</h3>
-        <span className="booking__guests">{item.guests}</span>
+        <span className="booking__guests">{item.guests} quests</span>
         <span className="booking__date">{withoutdashes(item.date)} </span>
         <span className="booking__total">{item.trip.price} $ </span>
         <button className="booking__cancel" title="Cancel booking" onClick={handleOnRemove}>
