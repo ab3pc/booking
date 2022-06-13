@@ -1,9 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import MainSection from "../../components/MainSection";
-import ModalBookTrip from "../../components/ModalBookTrip";
+import { Button, MainSection, ModalBookTrip } from "../../components";
 import { fetchData } from "../../request/bookings";
 import { TripItemType } from "../../types/trip";
 
@@ -29,7 +26,6 @@ const Trip = () => {
 
   return (
     <>
-      <Header />
       <MainSection className="trip-page">
         <div className="trip">
           {tripItem && <img src={tripItem.image} className="trip__img" alt={`trip`} />}
@@ -49,9 +45,7 @@ const Trip = () => {
               <span>Price</span>
               <strong className="trip-price__value"> {tripItem && tripItem.price}$</strong>
             </div>
-            <button className="trip__button button" onClick={handleShowModal}>
-              Book a trip
-            </button>
+            <Button title="Book a trip" styles="trip__button" onClick={handleShowModal} type="button" />
           </div>
         </div>
       </MainSection>
@@ -64,8 +58,6 @@ const Trip = () => {
           onClose={handleHideModal}
         />
       )}
-
-      <Footer />
     </>
   );
 };

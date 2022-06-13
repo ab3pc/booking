@@ -8,24 +8,15 @@ interface FormInputProps {
   autoComplete?: string;
 }
 
-const FormInput: React.FC<FormInputProps> = ({
-  title,
-  name,
-  type,
-  isRequired,
-  autoComplete
-}) => {
+const FormInput: React.FC<FormInputProps> = ({ title, name, type, isRequired, autoComplete }) => {
   return (
     <label className="trip-popup__input input">
       <span className="input__heading">{title}</span>
-      <input
-        name={name}
-        type={type}
-        required={isRequired}
-        autoComplete={autoComplete}
-        maxLength={20}
-        minLength={3}
-      />
+      {type === "password" ? (
+        <input name={name} type={type} required={isRequired} autoComplete={autoComplete} maxLength={20} minLength={3} />
+      ) : (
+        <input name={name} type={type} required={isRequired} autoComplete={autoComplete} />
+      )}
     </label>
   );
 };

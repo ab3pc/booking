@@ -1,67 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { TripItemType } from "../types/trip";
+import { fullSearch, initilStateTypes } from "../utils/searchLogic";
 
 interface SearchBarProps {
   trips: TripItemType[] | [];
+  filteredTrips: TripItemType[] | [];
   setFilteredTrips: React.Dispatch<React.SetStateAction<[] | TripItemType[]>>;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ trips, setFilteredTrips }) => {
-  const allTrips = trips;
+const SearchBar: React.FC<SearchBarProps> = ({ trips, filteredTrips, setFilteredTrips }) => {
   const [searchValue, setSearchValue] = useState<string>("");
+  const [selectLevel, setSelectLevel] = useState<string>("");
+  const [selectDuration, setSelectDuration] = useState<string>("");
+
+  const initilState: initilStateTypes = {
+    originalset: [...trips],
+    duration: selectDuration,
+    level: selectLevel,
+    inputValue: searchValue,
+  };
 
   const handleSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue((prev) => e.target.value);
-    const serachTrips = trips.filter((item) => item.title.toLowerCase().includes(e.target.value.toLowerCase()));
-    setFilteredTrips(serachTrips);
+
+    let searchValues = {
+      ...initilState,
+      inputValue: e.target.value,
+    };
+    const filtered = fullSearch(searchValues);
+    setFilteredTrips(filtered);
   };
 
   const handleDurationSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    let filteredTrips: TripItemType[] | [] = [];
-    switch (e.target.value) {
-      case "0_x_5":
-        filteredTrips = trips.filter((item) => item.duration < 5);
-        break;
-      case "5_x_10":
-        filteredTrips = trips.filter((item) => item.duration < 10);
-        break;
-      case "10_x":
-        filteredTrips = trips.filter((item) => item.duration >= 10);
-        break;
+    setSelectDuration(e.target.value);
 
-      default:
-        filteredTrips = allTrips;
-        break;
-    }
-    setFilteredTrips(filteredTrips);
+    let searchValues = {
+      ...initilState,
+      duration: e.target.value,
+    };
+    const filtered = fullSearch(searchValues);
+    setFilteredTrips(filtered);
   };
 
   const handleLevelSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    let filteredTrips: TripItemType[] | [] = [];
-    switch (e.target.value) {
-      case "easy":
-        filteredTrips = trips.filter((item) => item.level === "easy");
-        break;
-      case "moderate":
-        filteredTrips = trips.filter((item) => item.level === "moderate");
-
-        break;
-      case "difficult":
-        filteredTrips = trips.filter((item) => item.level === "difficult");
-        break;
-
-      default:
-        filteredTrips = allTrips;
-        break;
-    }
-    setFilteredTrips(filteredTrips);
+    setSelectLevel(e.target.value);
+    let searchValues = {
+      ...initilState,
+      level: e.target.value,
+    };
+    const filtered = fullSearch(searchValues);
+    setFilteredTrips(filtered);
   };
-
-  useEffect(() => {
-    if (!searchValue) {
-      setFilteredTrips(allTrips);
-    }
-  }, [searchValue, allTrips, setFilteredTrips]);
 
   return (
     <section className="trips-filter">
@@ -73,14 +62,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, setFilteredTrips }) => {
             name="search"
             type="search"
             placeholder="search by title"
-            value={searchValue}
+            // value={searchValues.inputValue}
             onChange={handleSearchValue}
           />
         </label>
         <label className="select">
           <span className="visually-hidden">Search by duration</span>
           <select name="duration" onChange={handleDurationSelect}>
-            <option value="">duration</option>
+            <option value="0">duration</option>
             <option value="0_x_5">&lt; 5 days</option>
             <option value="5_x_10">&lt; 10 days</option>
             <option value="10_x">&ge; 10 days</option>

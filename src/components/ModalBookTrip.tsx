@@ -1,5 +1,6 @@
 import React from "react";
 import { getDate } from "../utils/getActualDate";
+import Button from "./Button";
 
 interface MadalTripProps {
   title: string;
@@ -55,9 +56,11 @@ const ModalBookTrip: React.FC<MadalTripProps> = ({ title, price, duration, level
             <span className="trip-popup__total">
               Total: <output className="trip-popup__total-value">{price * Number(numOfQuests)} $</output>
             </span>
-            <button className="button" type="submit">
+            <Button title="Book a trip" type="submit" onClick={() => console.log("btn")} />
+
+            {/* <button className="button" type="submit">
               Book a trip
-            </button>
+            </button> */}
           </form>
         </div>
       </div>

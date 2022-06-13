@@ -73,8 +73,11 @@
 html {
   scroll-behavior: smooth;
 }
-
 body {
+  margin: 0;
+  padding: 0;
+}
+#root {
   display: flex;
   flex-direction: column;
   min-width: 320px;
@@ -497,6 +500,14 @@ select {
   background-color: var(--color-white);
   border-radius: 1px;
   box-shadow: var(--shadow);
+
+  transition: all 0.1s linear;
+}
+.trip-card:hover {
+  transform: scale(1.02);
+}
+.trip-card img {
+  height: 100%;
 }
 
 .trip-card__content {
@@ -623,6 +634,11 @@ select {
   background-color: var(--color-blue-100);
   border-left: 4px solid var(--color-blue-200);
   border-radius: 1px;
+
+  transition: all 0.1s linear;
+}
+.booking:hover {
+  transform: scale(1.02);
 }
 
 .booking__title {
@@ -647,6 +663,10 @@ select {
   outline: none;
   cursor: pointer;
   opacity: 0.5;
+}
+.booking__cancel:hover {
+  opacity: 1;
+  color: red;
 }
 
 /* animations */

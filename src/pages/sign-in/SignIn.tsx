@@ -1,18 +1,14 @@
 import React from "react";
-import Header from "../../components/Header";
-import MainSection from "../../components/MainSection";
-import Form from "../../components/form/Form";
 import { Link } from "react-router-dom";
+import { Form, MainSection } from "../../components";
 
 interface SignInProps {
   formSubmit: (arg: boolean) => void;
-  isAuth: boolean;
 }
 
-const SignIn: React.FC<SignInProps> = ({ formSubmit, isAuth }) => {
+const SignIn: React.FC<SignInProps> = ({ formSubmit }) => {
   return (
     <>
-      <Header isAuth={isAuth} />
       <MainSection className="sign-in-page">
         <Form title="Sign In" type="signIn" formSubmit={formSubmit} />
         <span>

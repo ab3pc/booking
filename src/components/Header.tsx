@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import briefcase from "../assets/images/briefcase.svg";
 import userIcon from "../assets/images/user.svg";
+import Button from "./Button";
 
 interface HeaderProps {
   isAuth?: boolean;
@@ -30,7 +31,12 @@ const Header: React.FC<HeaderProps> = ({ isAuth }) => {
                   <ul className="profile-nav__list">
                     <li className="profile-nav__item profile-nav__username">John Doe</li>
                     <li className="profile-nav__item">
-                      <button className="profile-nav__sign-out button">Sign Out</button>
+                      <Button
+                        styles="profile-nav__sign-out"
+                        title="Sign Out"
+                        type="button"
+                        onClick={() => location.reload()}
+                      />
                     </li>
                   </ul>
                 </div>

@@ -1,6 +1,4 @@
 import React from "react";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
 import MainSection from "../../components/MainSection";
 import { fetchData } from "../../request/bookings";
 import { BookType } from "../../types/bookings";
@@ -25,12 +23,9 @@ const Bookings = () => {
 
   return (
     <>
-      <Header />
       <MainSection className="bookings-page">
         <BookingsList bookingList={bookingList} setBookingList={handleRemoveItem} />
       </MainSection>
-
-      <Footer />
     </>
   );
 };
