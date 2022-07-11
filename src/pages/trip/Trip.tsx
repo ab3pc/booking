@@ -1,13 +1,18 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Button, MainSection, ModalBookTrip } from "../../components";
-import { fetchData } from "../../request/bookings";
+import { Button, Loader, MainSection, ModalBookTrip } from "../../components";
 import { TripItemType } from "../../types/trip";
+import TripsRequests from "../../request/trips/trips"
+import AuthRequests from "../../request/auth/auth"
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { bookAtrip } from "../../store/bookings-slice/bookings-slice";
+import { BookTripBodyType } from "../../request/bookings/types";
 
 const Trip = () => {
   let { tripId } = useParams();
   const [tripItem, setTripItem] = React.useState<TripItemType | null>(null);
   const [showModal, setShowModal] = React.useState<boolean>(false);
+  const [userID, setuserID] = React.useState<string>('');
 
   const handleShowModal = React.useCallback(() => {
     setShowModal(true);
@@ -17,17 +22,45 @@ const Trip = () => {
   }, []);
 
   React.useEffect(() => {
-    (async () => {
-      const resp = await fetchData("data/tripList.json");
-      const trip = resp.filter((item: TripItemType) => item.id === tripId);
-      setTripItem(trip[0]);
-    })();
+    const tripById = async () => {
+    const data = await TripsRequests.getTripByID(tripId!)
+    setTripItem(data.data)
+    const userID = await AuthRequests.getUserId();
+    setuserID(userID.data.id)
+     console.log();
+     
+  
+  }
+    tripById()
+
+     
+    
   }, []);
+  const dispath = useAppDispatch();
+
+  const handleOnSubmit = (date:string, guests:number) => {
+    const body:BookTripBodyType = {
+      tripId: tripId!,
+      guests: guests,
+      date: date,
+      userId:userID
+    }
+    console.log(body);
+    dispath(bookAtrip(body))
+    // {
+    //   "tripId": "6288f90c2683168b8e95c372",
+    //   "userId": "6288f90c2683168b8e95c372",
+    //   "guests": 2,
+    //   "date": "2022-05-21T14:37:00.049Z"
+    // }
+  }
+
+
 
   return (
     <>
       <MainSection className="trip-page">
-        <div className="trip">
+        {!tripItem ? <Loader/>:<div className="trip">
           {tripItem && <img src={tripItem.image} className="trip__img" alt={`trip`} />}
 
           <div className="trip__content">
@@ -47,7 +80,8 @@ const Trip = () => {
             </div>
             <Button title="Book a trip" styles="trip__button" onClick={handleShowModal} type="button" />
           </div>
-        </div>
+        </div>}
+       
       </MainSection>
       {showModal && tripItem && (
         <ModalBookTrip
@@ -56,6 +90,7 @@ const Trip = () => {
           duration={tripItem.duration}
           level={tripItem.level}
           onClose={handleHideModal}
+          formSubmit = {handleOnSubmit}
         />
       )}
     </>
