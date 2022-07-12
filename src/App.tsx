@@ -9,7 +9,7 @@ import { toggleAuth } from "./store/authorization-slice/authorization-slice";
 export default function App() {
    const {auth} = useAppSelector(state => state.authorization);
   const dispatch = useAppDispatch();
-  
+  const {fullName} = useAppSelector(state => state.authorization)
     
    useEffect(() => {
     if(!localStorage.getItem('access_token')) {
@@ -19,9 +19,10 @@ export default function App() {
     }
    }, [])
 
+
   return (
     <>
-      <Header isAuth={auth} />
+      <Header fullName={fullName} isAuth={auth} />
          <Routes>
         <Route path="/" element={auth ? <Main /> : <SignIn/>} />
         <Route path="/sign-in" element={auth ? <Navigate to="/" /> : <SignIn/>} />

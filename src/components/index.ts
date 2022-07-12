@@ -7,3 +7,4 @@ export { default as Button } from "./Button";
 export { default as ModalBookTrip } from "./ModalBookTrip";
 export { default as Form } from "./form/Form";
 export { default as Loader } from "./Loader";
+export { default as ErrorMsg } from "./ErrorMsg";

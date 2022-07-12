@@ -38,7 +38,9 @@ const tripsSlice = createSlice({
   name: 'trips',
   initialState,
   reducers: {
-
+    clearErrorsTrips(state) {
+      state.error = null
+},
   },
   extraReducers: {
     [getAllTrips.fulfilled.type]: (state, action: PayloadAction<any>) => {
@@ -57,5 +59,5 @@ const tripsSlice = createSlice({
     },
   }
 })
-
+export const {clearErrorsTrips} = tripsSlice.actions
 export default tripsSlice.reducer

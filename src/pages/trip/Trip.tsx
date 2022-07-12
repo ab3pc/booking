@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Button, Loader, MainSection, ModalBookTrip } from "../../components";
+import { Button, ErrorMsg, Loader, MainSection, ModalBookTrip } from "../../components";
 import { TripItemType } from "../../types/trip";
 import TripsRequests from "../../request/trips/trips"
 import AuthRequests from "../../request/auth/auth"
@@ -14,7 +14,7 @@ const Trip = () => {
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const [userID, setuserID] = React.useState<string>('');
   const dispath = useAppDispatch();
-
+  const {loading, error} = useAppSelector(state => state.trips)
   const handleShowModal = React.useCallback(() => {
     setShowModal(true);
   }, []);
@@ -46,31 +46,31 @@ const Trip = () => {
   }
 
   return (
-    <>
-      <MainSection className="trip-page">
-        {!tripItem ? <Loader/>:<div className="trip">
-          {tripItem && <img src={tripItem.image} className="trip__img" alt={`trip`} />}
+    <> {error ? <ErrorMsg {...error}/>:  <MainSection className="trip-page">
+    {!tripItem ? <Loader/>:<div className="trip">
+      {tripItem && <img src={tripItem.image} className="trip__img" alt={`trip`} />}
 
-          <div className="trip__content">
-            <div className="trip-info">
-              <h3 className="trip-info__title">{tripItem && tripItem.title}</h3>
-              <div className="trip-info__content">
-                <span className="trip-info__duration">
-                  <strong>{tripItem && tripItem.duration}</strong> days
-                </span>
-                <span className="trip-info__level">{tripItem && tripItem.level}</span>
-              </div>
-            </div>
-            <div className="trip__description">{tripItem && tripItem.description}</div>
-            <div className="trip-price">
-              <span>Price</span>
-              <strong className="trip-price__value"> {tripItem && tripItem.price}$</strong>
-            </div>
-            <Button title="Book a trip" styles="trip__button" onClick={handleShowModal} type="button" />
+      <div className="trip__content">
+        <div className="trip-info">
+          <h3 className="trip-info__title">{tripItem && tripItem.title}</h3>
+          <div className="trip-info__content">
+            <span className="trip-info__duration">
+              <strong>{tripItem && tripItem.duration}</strong> days
+            </span>
+            <span className="trip-info__level">{tripItem && tripItem.level}</span>
           </div>
-        </div>}
-       
-      </MainSection>
+        </div>
+        <div className="trip__description">{tripItem && tripItem.description}</div>
+        <div className="trip-price">
+          <span>Price</span>
+          <strong className="trip-price__value"> {tripItem && tripItem.price}$</strong>
+        </div>
+        <Button title="Book a trip" styles="trip__button" onClick={handleShowModal} type="button" />
+      </div>
+    </div>}
+   
+  </MainSection>}
+     
       {showModal && tripItem && (
         <ModalBookTrip
           title={tripItem.title}

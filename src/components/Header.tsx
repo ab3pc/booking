@@ -8,9 +8,10 @@ import Button from "./Button";
 
 interface HeaderProps {
   isAuth?: boolean;
+  fullName: string
 }
 
-const Header: React.FC<HeaderProps> = ({ isAuth }) => {
+const Header: React.FC<HeaderProps> = ({ isAuth, fullName = 'User Name' }) => {
   const dispatch = useAppDispatch();
 
   const handleLogOut = () => {
@@ -37,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ isAuth }) => {
                   <span className="visually-hidden">Profile</span>
                   <img src={userIcon} alt="profile icon" />
                   <ul className="profile-nav__list">
-                    <li className="profile-nav__item profile-nav__username">John Doe</li>
+                    <li className="profile-nav__item profile-nav__username">{fullName}</li>
                     <li className="profile-nav__item">
                       <Button
                         styles="profile-nav__sign-out"

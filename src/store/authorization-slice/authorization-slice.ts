@@ -10,6 +10,7 @@ const initialState: AuthorizationStateType = {
   login: '',
   userId: null,
   name: '',
+  fullName:'',
   password: '',
   error: null,
   loading: false
@@ -51,7 +52,6 @@ export const signUp = createAsyncThunk(
         fullName: state.name
       };
       const { data } = await AuthRequests.registr(body);
-      console.log(data, 'from server');
       return data
     } catch (e) {
       //@ts-ignore
@@ -95,6 +95,7 @@ const authorizationSlice = createSlice({
     },
     exit(state) {
       state.auth = false,
+      state.error = null
         localStorage.clear()
     },
     toggleAuth(state, action: PayloadAction<boolean>) {
@@ -111,6 +112,7 @@ const authorizationSlice = createSlice({
       state.error = null
       state.auth = true
       state.loading = false
+      state.fullName = action.payload.user.fullName
     },
     [signIn.pending.type]: (state, action: PayloadAction<any>) => {
       state.loading = true
@@ -129,6 +131,7 @@ const authorizationSlice = createSlice({
       state.error = null
       state.auth = true
       state.loading = false
+      state.fullName = action.payload.user.fullName
     },
     [signUp.pending.type]: (state, action: PayloadAction<any>) => {
       state.loading = true

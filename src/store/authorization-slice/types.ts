@@ -7,13 +7,14 @@ export enum formToggle {
 export type FormType = formToggle.SIGN_IN | formToggle.SIGN_UP | formToggle.EXIT;
 
 export interface AuthorizationStateType {
-	auth:boolean,
+  auth:boolean,
   userId: string | null,
-	typeForm: FormType,
-	login: string,
-	password: string,
-	error: ErrorType | null,
+  typeForm: FormType,
+  login: string,
+  password: string,
+  error: ErrorType | null,
   name: string,
+  fullName:string,
   loading: boolean
 }
 export interface ErrorType {

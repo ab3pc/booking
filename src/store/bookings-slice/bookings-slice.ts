@@ -56,7 +56,11 @@ const bookingsSlice = createSlice({
     deleteBookingsItem (state, action:PayloadAction<string>) {
       const tripId = action.payload;
       state.bookings = state.bookings.filter(item => item.id !==tripId)
-    }
+    },
+    clearErrors(state) {
+           state.error = null
+    },
+
   },
   extraReducers: {
     [getAllTrips.fulfilled.type]: (state, action:PayloadAction<any>) => {
@@ -66,7 +70,7 @@ const bookingsSlice = createSlice({
     [getAllTrips.pending.type]: (state, action:PayloadAction<any>) => {
       state.loading = true
     },
-    [getAllTrips.pending.type]: (state, action:PayloadAction<any>) => {
+    [getAllTrips.rejected.type]: (state, action:PayloadAction<any>) => {
       state.loading = false
       state.error = action.payload
     },
@@ -77,7 +81,7 @@ const bookingsSlice = createSlice({
     [bookAtrip.pending.type]: (state, action:PayloadAction<any>) => {
       state.loading = true
     },
-    [bookAtrip.pending.type]: (state, action:PayloadAction<any>) => {
+    [bookAtrip.rejected.type]: (state, action:PayloadAction<any>) => {
       state.loading = false
       state.error = action.payload
     },
@@ -88,12 +92,12 @@ const bookingsSlice = createSlice({
     [deleteBookings.pending.type]: (state, action:PayloadAction<any>) => {
       state.loading = true
     },
-    [deleteBookings.pending.type]: (state, action:PayloadAction<any>) => {
+    [deleteBookings.rejected.type]: (state, action:PayloadAction<any>) => {
       state.loading = false
       state.error = action.payload
     },
 
   }
 })
-export const {deleteBookingsItem} = bookingsSlice.actions;
+export const {deleteBookingsItem, clearErrors} = bookingsSlice.actions;
 export default bookingsSlice.reducer

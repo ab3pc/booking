@@ -1,5 +1,5 @@
 import React from "react";
-import { Loader } from "../../components";
+import { ErrorMsg, Loader } from "../../components";
 import MainSection from "../../components/MainSection";
 import { deleteBookings, deleteBookingsItem, getAllTrips } from "../../store/bookings-slice/bookings-slice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
@@ -20,9 +20,10 @@ const Bookings = () => {
 
   return (
     <>
-      <MainSection className="bookings-page">
+    {error ? <ErrorMsg {...error}/>: <MainSection className="bookings-page">
         {loading ? <Loader/>:  <BookingsList bookingList={bookings} setBookingList={handleRemoveItem} />}
-      </MainSection>
+      </MainSection>}
+      
     </>
   );
 };
