@@ -37,6 +37,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, setFilteredTrips }) => {
       duration: e.target.value,
     };
     const filtered = fullSearch(searchValues);
+  
+    
     setFilteredTrips(filtered);
   };
 
@@ -47,7 +49,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, setFilteredTrips }) => {
       level: e.target.value,
     };
     const filtered = fullSearch(searchValues);
-    
+    setFilteredTrips(filtered);
   };
  
   return (

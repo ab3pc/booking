@@ -13,6 +13,7 @@ const Trip = () => {
   const [tripItem, setTripItem] = React.useState<TripItemType | null>(null);
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const [userID, setuserID] = React.useState<string>('');
+  const dispath = useAppDispatch();
 
   const handleShowModal = React.useCallback(() => {
     setShowModal(true);
@@ -22,21 +23,14 @@ const Trip = () => {
   }, []);
 
   React.useEffect(() => {
-    const tripById = async () => {
-    const data = await TripsRequests.getTripByID(tripId!)
-    setTripItem(data.data)
-    const userID = await AuthRequests.getUserId();
-    setuserID(userID.data.id)
-     console.log();
-     
-  
-  }
-    tripById()
-
-     
-    
-  }, []);
-  const dispath = useAppDispatch();
+    (async () => {
+      const data = await TripsRequests.getTripByID(tripId!)
+      setTripItem(data.data)
+      const userID = await AuthRequests.getUserId();
+      setuserID(userID.data.id)
+   })()
+   
+ }, []);
 
   const handleOnSubmit = (date:string, guests:number) => {
     const body:BookTripBodyType = {
@@ -45,17 +39,11 @@ const Trip = () => {
       date: date,
       userId:userID
     }
-    console.log(body);
-    dispath(bookAtrip(body))
-    // {
-    //   "tripId": "6288f90c2683168b8e95c372",
-    //   "userId": "6288f90c2683168b8e95c372",
-    //   "guests": 2,
-    //   "date": "2022-05-21T14:37:00.049Z"
-    // }
+
+    dispath(bookAtrip(body));
+    handleHideModal();
+    
   }
-
-
 
   return (
     <>

@@ -14,7 +14,7 @@ export const getAllTrips = createAsyncThunk(
   'bookings/getAll', async(_, {rejectWithValue, getState}) => {
     try {
     const { data } = await BookingsRequests.getBookings();
-      return data
+    return data
     } catch (e) {
       //@ts-ignore
        return rejectWithValue(e.response.data)
@@ -39,6 +39,8 @@ export const deleteBookings = createAsyncThunk(
     try {
 
     const { data } = await BookingsRequests.deleteBooking(tripId);
+    console.log(data);
+    
       return data
     } catch (e) {
       //@ts-ignore

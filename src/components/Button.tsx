@@ -5,10 +5,11 @@ interface ButtonProps {
   styles?: string;
   type: "button" | "submit" | "reset" | undefined;
   onClick?: () => void;
+  loading?:boolean
 }
 
-const Button: React.FC<ButtonProps> = ({ title, styles, type, onClick }) => {
-  const cls = `button ${styles}`;
+const Button: React.FC<ButtonProps> = ({ title, styles, type, onClick, loading }) => {
+  const cls = `button ${loading&&'loading'}  ${styles}`;
 
   return (
     <button className={cls} type={type} onClick={onClick}>

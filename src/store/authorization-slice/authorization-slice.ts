@@ -95,7 +95,7 @@ const authorizationSlice = createSlice({
     },
     exit(state) {
       state.auth = false,
-        state.typeForm = formToggle.SIGN_IN
+        localStorage.clear()
     },
     toggleAuth(state, action: PayloadAction<boolean>) {
       state.auth = action.payload

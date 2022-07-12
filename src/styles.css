@@ -113,6 +113,7 @@ select {
   font-family: inherit;
 }
 
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -194,6 +195,10 @@ select {
 
 .button:hover {
   background-color: var(--color-blue-300);
+}
+.loading {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* modal */

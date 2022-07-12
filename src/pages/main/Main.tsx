@@ -14,17 +14,18 @@ const Main: React.FC = () => {
 
 
   React.useEffect(() => {
-    dispatch(getAllTrips())
-  
-  }, []);
-  
-
+    (async() => {
+     const data = await dispatch(getAllTrips())
+    setFilteredTrips(data.payload)
+    })()
+   }, []);
+  console.log(filteredTrips);
   
   return (
      <MainSection className="main">
       {loading ? <Loader/>: <>
       <SearchBar trips={fetchedTrips} setFilteredTrips={setFilteredTrips} />
-      <TripList trips={fetchedTrips} />
+      <TripList trips={filteredTrips} />
       </>}
       
     </MainSection>

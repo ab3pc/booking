@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import briefcase from "../assets/images/briefcase.svg";
 import userIcon from "../assets/images/user.svg";
+import { exit } from "../store/authorization-slice/authorization-slice";
+import { useAppDispatch } from "../store/store";
 import Button from "./Button";
 
 interface HeaderProps {
@@ -9,6 +11,12 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isAuth }) => {
+  const dispatch = useAppDispatch();
+
+  const handleLogOut = () => {
+    dispatch(exit())
+  }
+
   return (
     <header className="header">
       <div className="header__inner">
@@ -35,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({ isAuth }) => {
                         styles="profile-nav__sign-out"
                         title="Sign Out"
                         type="button"
-                        onClick={() => location.reload()}
+                        onClick={handleLogOut}
                       />
                     </li>
                   </ul>
