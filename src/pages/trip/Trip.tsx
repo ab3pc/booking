@@ -10,6 +10,7 @@ import { BookTripBodyType } from "../../request/bookings/types";
 import { getTrip } from "../../store/trips-slice/trips-slice";
 
 const Trip = () => {
+
   let { tripId } = useParams();
   const [tripItem, setTripItem] = React.useState<TripItemType | null>(null);
   const [showModal, setShowModal] = React.useState<boolean>(false);
@@ -22,7 +23,7 @@ const Trip = () => {
   const handleHideModal = React.useCallback(() => {
     setShowModal(false);
   }, []);
-
+ 
   React.useEffect(() => {
     (async () => {
       //const data = await TripsRequests.getTripByID(tripId!)
@@ -34,18 +35,19 @@ const Trip = () => {
    
  }, []);
 
-  const handleOnSubmit = (date:string, guests:number) => {
-    const body:BookTripBodyType = {
+  const handleOnSubmit = async (date:string, guests:number) => {
+      const body:BookTripBodyType = {
       tripId: tripId!,
       guests: guests,
       date: date,
       userId:userID
     }
-
-    dispath(bookAtrip(body));
-    handleHideModal();
-    
+    const data = await dispath(bookAtrip(body));
+    if(data.payload.id) {
+      handleHideModal();
+    }  
   }
+
 
   return (
     <> {error ? <ErrorMsg {...error}/>:  <MainSection className="trip-page">
@@ -73,15 +75,15 @@ const Trip = () => {
    
   </MainSection>}
      
-      {showModal && tripItem && (
-        <ModalBookTrip
+      {showModal && tripItem && (<ModalBookTrip
           title={tripItem.title}
           price={tripItem.price}
           duration={tripItem.duration}
           level={tripItem.level}
           onClose={handleHideModal}
           formSubmit = {handleOnSubmit}
-        />
+          />
+       
       )}
     </>
   );

@@ -10,7 +10,7 @@ const initialState: AuthorizationStateType = {
   login: '',
   userId: null,
   name: '',
-  fullName:'',
+  fullName: '',
   password: '',
   error: null,
   loading: false
@@ -95,8 +95,8 @@ const authorizationSlice = createSlice({
     },
     exit(state) {
       state.auth = false,
-      state.error = null
-        localStorage.clear()
+        state.error = null
+      localStorage.clear()
     },
     toggleAuth(state, action: PayloadAction<boolean>) {
       state.auth = action.payload
@@ -106,6 +106,7 @@ const authorizationSlice = createSlice({
   extraReducers: {
     [signIn.fulfilled.type]: (state, action: PayloadAction<any>) => {
       localStorage.setItem('access_token', JSON.stringify(action.payload.token))
+      localStorage.setItem('fullName__bookingService', action.payload.user.fullName)
       state.login = ''
       state.userId = action.payload.user.id
       state.password = ''
@@ -125,6 +126,7 @@ const authorizationSlice = createSlice({
     },
     [signUp.fulfilled.type]: (state, action: PayloadAction<any>) => {
       localStorage.setItem('access_token', JSON.stringify(action.payload.token))
+      localStorage.setItem('fullName__bookingService', action.payload.user.fullName)
       state.login = ''
       state.userId = action.payload.user.id
       state.password = ''
@@ -143,7 +145,7 @@ const authorizationSlice = createSlice({
     },
     [getUserID.fulfilled.type]: (state, action: PayloadAction<any>) => {
       state.userId = action.payload.user.id
-     },
+    },
     [getUserID.rejected.type]: (state, action: PayloadAction<any>) => {
       state.error = action.payload
       state.auth = false

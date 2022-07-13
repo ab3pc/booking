@@ -18,6 +18,7 @@ const Bookings = () => {
     dispatch(getAllTrips());
   }, []);
 
+
   return (
     <>
     {error ? <ErrorMsg {...error}/>: <MainSection className="bookings-page">

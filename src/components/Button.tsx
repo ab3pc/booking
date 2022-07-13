@@ -8,8 +8,8 @@ interface ButtonProps {
   loading?:boolean
 }
 
-const Button: React.FC<ButtonProps> = ({ title, styles, type, onClick, loading }) => {
-  const cls = `button ${loading&&'loading'}  ${styles}`;
+const Button: React.FC<ButtonProps> = ({ title, styles='', type, onClick, loading }) => {
+  const cls = `button ${styles}`;
 
   return (
     <button className={cls} type={type} onClick={onClick}>

@@ -7,10 +7,10 @@ import { useAppDispatch, useAppSelector } from "./store/store";
 import { toggleAuth } from "./store/authorization-slice/authorization-slice";
 
 export default function App() {
-  let {auth} = useAppSelector(state => state.authorization);
+
+  let {auth, fullName} = useAppSelector(state => state.authorization)
   const dispatch = useAppDispatch();
-  const {fullName} = useAppSelector(state => state.authorization)
-    
+      
    useEffect(() => {
     if(!localStorage.getItem('access_token')) {
       dispatch(toggleAuth(false))
@@ -18,9 +18,11 @@ export default function App() {
       dispatch(toggleAuth(true))
     }
    }, [])
-  const token = localStorage.getItem('access_token')
-  if(token) auth = true
 
+  const token = localStorage.getItem('access_token');
+  if(token) auth = true;
+  const tempFullName = localStorage.getItem('fullName__bookingService');
+  if(tempFullName) fullName = tempFullName
 
   return (
     <>
