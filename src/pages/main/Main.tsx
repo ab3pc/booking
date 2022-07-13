@@ -16,12 +16,15 @@ const Main: React.FC = () => {
 
   React.useEffect(() => {
     (async() => {
-     const data = await dispatch(getAllTrips())
-    setFilteredTrips(data.payload)
-    setFetchedTrips(data.payload)
+    try {
+      const data = await dispatch(getAllTrips())
+      if(!data.payload) throw Error('Error')
+     setFilteredTrips(data.payload)
+     setFetchedTrips(data.payload)
+    } catch (error) { }
     })()
    }, []);
- 
+
   return (
     <> {error ? <ErrorMsg {...error}/>: <MainSection className="main">
       {loading ? <Loader/>: <>

@@ -1,5 +1,4 @@
 import React from "react";
-import { useAppSelector } from "../store/store";
 import { getDate } from "../utils/getActualDate";
 import Button from "./Button";
 
@@ -10,26 +9,28 @@ interface MadalTripProps {
   level: string;
   onClose: () => void;
   formSubmit: (date:string, numOfQuests:number) => void
+  loading?: boolean
 }
 
-const ModalBookTrip: React.FC<MadalTripProps> = ({ title, price, duration, level, onClose, formSubmit }) => {
+const ModalBookTrip: React.FC<MadalTripProps> = ({ title, price, duration, level, onClose, formSubmit, loading }) => {
   const initialDate = getDate();
-
   const [date, setDate] = React.useState<string>(initialDate);
   const [numOfQuests, setNumOfQuests] = React.useState<string>("1");
-  const {error, loading} = useAppSelector(state => state.trips)
   const handleDateOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNumOfQuests(e.target.value);
   };
+  const modalRef = React.useRef<HTMLDivElement>(null)
 
 const handleOnSubmit = () => {
+  const elem = modalRef.current;
+  if(elem) elem.className = "trip-popup modal__loading";
   formSubmit(date, Number(numOfQuests))
-}
 
+}
   return (
     <div>
       <div className="modal">
-        <div className="trip-popup">
+        <div className="trip-popup"  ref={modalRef}>
           <button className="trip-popup__close" onClick={onClose}>
             ×
           </button>
@@ -62,7 +63,7 @@ const handleOnSubmit = () => {
             <span className="trip-popup__total">
               Total: <output className="trip-popup__total-value">{price * Number(numOfQuests)} $</output>
             </span>
-            <Button loading={loading} title="Book a trip" type="button" onClick={handleOnSubmit} />
+            <Button title="Book a trip" type="button" onClick={handleOnSubmit} />
           </form>
         </div>
       </div>
