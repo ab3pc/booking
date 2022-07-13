@@ -113,6 +113,7 @@ select {
   font-family: inherit;
 }
 
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -195,6 +196,10 @@ select {
 .button:hover {
   background-color: var(--color-blue-300);
 }
+.loading {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 /* modal */
 
@@ -210,8 +215,20 @@ select {
 }
 
 /* loader */
-
+.loader__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center ;
+  width: 100%;
+ 
+  height: calc(100vh - 153px)  ;
+  background-color: rgba(255, 255, 255, 0.445);
+}
 .loader {
+  display: block;
+
+  margin: 0 auto;
   width: 60px;
   height: 60px;
   border: 4px solid var(--color-blue-200);
@@ -425,9 +442,18 @@ select {
 
 .sign-up-form__title,
 .sign-in-form__title {
+  position: relative;
   margin: 0 0 20px;
   font-size: var(--font-size-400);
   text-align: center;
+}
+.sign-up-form__error {
+  position: absolute;
+  left: 0;
+  top: 35px;
+  font-size: 16px;
+  text-align: center;
+  color: red
 }
 
 .sign-up-form__link,
@@ -610,10 +636,11 @@ select {
 /* bookings-page */
 
 .bookings-page {
-  padding: 60px 20px;
+ 
 }
 
 .bookings__list {
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -623,6 +650,7 @@ select {
   margin: 0 auto;
   padding: 0;
   list-style: none;
+  margin-top:  60px;
 }
 
 .booking {
@@ -668,6 +696,108 @@ select {
 .booking__cancel:hover {
   opacity: 1;
   color: red;
+}
+/*Error Modal*/
+.frame {
+  position: absolute;
+ 
+  width: 100%;
+  height: 100%;
+  
+  border-radius: 2px;
+  box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.3);
+	overflow: hidden;
+  background: #3F3F3F;
+  color: #415868;
+	font-family: 'Open Sans', Helvetica, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.frame .modal {
+  position: absolute;
+	width: 280px;
+	height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+margin: 0 auto;
+margin-top: 100px;
+	background: #fff;
+	border-radius: 3px;
+	box-shadow: 4px 8px 12px 0 rgba(0,0,0,0.4);
+	text-align: center;
+	overflow: hidden;
+
+  
+	animation: show-modal .7s ease-in-out;
+
+}
+
+.frame .modal.hide {
+  animation: hide-modal .4s ease-in-out both;
+}
+.frame .modal img {
+  margin-top: 24px;
+}
+.frame .modal .title {
+  display: block;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  margin: 14px 0 5px 0;
+}
+.frame .modal 	p {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 19px;
+  margin: 0;
+  padding: 0 30px;
+}
+.frame .modal .button {
+  position: absolute;
+
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #F65656;
+  color: #fff;
+  line-height: 40px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background .3s ease-in-out;
+  
+}
+.frame .modal .button:hover {
+  background: #EC3434;
+}
+
+@keyframes show-modal {
+	0% {
+		transform: scale(0);
+	}
+	60% {
+		transform: scale(1.1);
+	}
+	80% {
+		transform: scale(.95);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes hide-modal {
+	0% {
+		transform: scale(1);
+	}
+	20% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(0);
+	}
 }
 
 /* animations */

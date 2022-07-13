@@ -1,25 +1,36 @@
 import React from "react";
-import { MainSection, SearchBar, TripList } from "../../components";
-import { fetchData } from "../../request/bookings";
+
+import { ErrorMsg, Loader, MainSection, SearchBar, TripList } from "../../components";
+
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { getAllTrips } from "../../store/trips-slice/trips-slice";
 import { TripItemType } from "../../types/trip";
 
 const Main: React.FC = () => {
-  const [trips, setTrips] = React.useState<TripItemType[] | []>([]);
+
+  const dispatch = useAppDispatch();
+  const { error, loading} = useAppSelector(state => state.trips)
   const [filteredTrips, setFilteredTrips] = React.useState<TripItemType[] | []>([]);
+  const [fetchedTrips, setFetchedTrips] = React.useState<TripItemType[] | []>([]);
+
 
   React.useEffect(() => {
-    (async () => {
-      const resp = await fetchData("data/tripList.json");
-      setTrips(resp);
-      setFilteredTrips(resp);
-    })();
-  }, []);
-
+    (async() => {
+     const data = await dispatch(getAllTrips())
+    setFilteredTrips(data.payload)
+    setFetchedTrips(data.payload)
+    })()
+   }, []);
+ 
   return (
-    <MainSection className="main">
-      <SearchBar trips={trips} filteredTrips={filteredTrips} setFilteredTrips={setFilteredTrips} />
+    <> {error ? <ErrorMsg {...error}/>: <MainSection className="main">
+      {loading ? <Loader/>: <>
+      <SearchBar trips={fetchedTrips} setFilteredTrips={setFilteredTrips} />
       <TripList trips={filteredTrips} />
-    </MainSection>
+          </>}
+       </MainSection>}
+    </>
+   
   );
 };
 export default Main;

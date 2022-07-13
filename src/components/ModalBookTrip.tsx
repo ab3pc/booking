@@ -1,4 +1,5 @@
 import React from "react";
+import { useAppSelector } from "../store/store";
 import { getDate } from "../utils/getActualDate";
 import Button from "./Button";
 
@@ -8,17 +9,22 @@ interface MadalTripProps {
   duration: number;
   level: string;
   onClose: () => void;
+  formSubmit: (date:string, numOfQuests:number) => void
 }
 
-const ModalBookTrip: React.FC<MadalTripProps> = ({ title, price, duration, level, onClose }) => {
+const ModalBookTrip: React.FC<MadalTripProps> = ({ title, price, duration, level, onClose, formSubmit }) => {
   const initialDate = getDate();
 
   const [date, setDate] = React.useState<string>(initialDate);
   const [numOfQuests, setNumOfQuests] = React.useState<string>("1");
-
+  const {error, loading} = useAppSelector(state => state.trips)
   const handleDateOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNumOfQuests(e.target.value);
   };
+
+const handleOnSubmit = () => {
+  formSubmit(date, Number(numOfQuests))
+}
 
   return (
     <div>
@@ -56,7 +62,7 @@ const ModalBookTrip: React.FC<MadalTripProps> = ({ title, price, duration, level
             <span className="trip-popup__total">
               Total: <output className="trip-popup__total-value">{price * Number(numOfQuests)} $</output>
             </span>
-            <Button title="Book a trip" type="button" onClick={onClose} />
+            <Button loading={loading} title="Book a trip" type="button" onClick={handleOnSubmit} />
           </form>
         </div>
       </div>

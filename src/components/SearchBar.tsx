@@ -4,22 +4,22 @@ import { fullSearch, initialStateTypes } from "../utils/searchLogic";
 
 interface SearchBarProps {
   trips: TripItemType[] | [];
-  filteredTrips: TripItemType[] | [];
+ // filteredTrips: TripItemType[] | [];
   setFilteredTrips: React.Dispatch<React.SetStateAction<[] | TripItemType[]>>;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ trips, filteredTrips, setFilteredTrips }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ trips=[], setFilteredTrips }) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectLevel, setSelectLevel] = useState<string>("");
   const [selectDuration, setSelectDuration] = useState<string>("");
-
+ 
   const initialState: initialStateTypes = {
     originalset: [...trips],
     duration: selectDuration,
     level: selectLevel,
     inputValue: searchValue,
   };
-
+  
   const handleSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue((prev) => e.target.value);
     let searchValues = {
@@ -37,6 +37,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, filteredTrips, setFiltered
       duration: e.target.value,
     };
     const filtered = fullSearch(searchValues);
+  
+    
     setFilteredTrips(filtered);
   };
 
@@ -49,7 +51,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ trips, filteredTrips, setFiltered
     const filtered = fullSearch(searchValues);
     setFilteredTrips(filtered);
   };
-
+ 
   return (
     <section className="trips-filter">
       <h2 className="visually-hidden">Trips filter</h2>
