@@ -1,18 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Form, MainSection } from "../../components";
+import { Form, Loader, MainSection } from "../../components";
 import { signIn } from "../../store/authorization-slice/authorization-slice";
-import { useAppDispatch } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../store/store";
 
 const SignIn: React.FC = ({  }) => {
+
   const dispatch = useAppDispatch();
+  const {loading} = useAppSelector( state=> state.authorization )
   const handleSignIn = () => {
     dispatch(signIn());
   }
 
   return (
     <>
-      <MainSection className="sign-in-page">
+    {loading? <Loader/>:<MainSection className="sign-in-page">
         <Form title="Sign In" type="signIn" formSubmit={handleSignIn} />
         <span>
           Don't have an account?
@@ -20,7 +22,8 @@ const SignIn: React.FC = ({  }) => {
             Sign Up
           </Link>
         </span>
-      </MainSection>
+      </MainSection> }
+      
     </>
   );
 };

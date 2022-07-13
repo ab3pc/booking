@@ -46,13 +46,27 @@ const tripsSlice = createSlice({
     [getAllTrips.fulfilled.type]: (state, action: PayloadAction<any>) => {
       state.fetchedTrips = action.payload;
       state.loading = false;
-          
+        console.log(action.payload);
+              
     },
     [getAllTrips.pending.type]: (state, action: PayloadAction<any>) => {
       state.loading = true;
           
     },
     [getAllTrips.rejected.type]: (state, action: PayloadAction<any>) => {
+      state.error = action.payload;
+      state.loading = false;
+          
+    },
+    [getTrip.fulfilled.type]: (state, action: PayloadAction<any>) => {
+      state.loading = false;
+          
+    },
+    [getTrip.pending.type]: (state, action: PayloadAction<any>) => {
+      state.loading = true;
+          
+    },
+    [getTrip.rejected.type]: (state, action: PayloadAction<any>) => {
       state.error = action.payload;
       state.loading = false;
           

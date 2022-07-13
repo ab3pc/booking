@@ -8,7 +8,7 @@ interface SearchBarProps {
   setFilteredTrips: React.Dispatch<React.SetStateAction<[] | TripItemType[]>>;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ trips, setFilteredTrips }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ trips=[], setFilteredTrips }) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectLevel, setSelectLevel] = useState<string>("");
   const [selectDuration, setSelectDuration] = useState<string>("");

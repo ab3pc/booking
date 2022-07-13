@@ -7,6 +7,7 @@ import AuthRequests from "../../request/auth/auth"
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { bookAtrip } from "../../store/bookings-slice/bookings-slice";
 import { BookTripBodyType } from "../../request/bookings/types";
+import { getTrip } from "../../store/trips-slice/trips-slice";
 
 const Trip = () => {
   let { tripId } = useParams();
@@ -24,8 +25,9 @@ const Trip = () => {
 
   React.useEffect(() => {
     (async () => {
-      const data = await TripsRequests.getTripByID(tripId!)
-      setTripItem(data.data)
+      //const data = await TripsRequests.getTripByID(tripId!)
+      const data = await dispath(getTrip(tripId!))
+      setTripItem(data.payload)
       const userID = await AuthRequests.getUserId();
       setuserID(userID.data.id)
    })()
@@ -47,7 +49,7 @@ const Trip = () => {
 
   return (
     <> {error ? <ErrorMsg {...error}/>:  <MainSection className="trip-page">
-    {!tripItem ? <Loader/>:<div className="trip">
+    {loading ? <Loader/>:<div className="trip">
       {tripItem && <img src={tripItem.image} className="trip__img" alt={`trip`} />}
 
       <div className="trip__content">

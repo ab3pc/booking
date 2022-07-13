@@ -216,12 +216,18 @@ select {
 
 /* loader */
 .loader__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center ;
   width: 100%;
-  margin-top: 100px;
+ 
+  height: calc(100vh - 153px)  ;
   background-color: rgba(255, 255, 255, 0.445);
 }
 .loader {
   display: block;
+
   margin: 0 auto;
   width: 60px;
   height: 60px;
@@ -630,10 +636,11 @@ select {
 /* bookings-page */
 
 .bookings-page {
-  padding: 60px 20px;
+ 
 }
 
 .bookings__list {
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -643,6 +650,7 @@ select {
   margin: 0 auto;
   padding: 0;
   list-style: none;
+  margin-top:  60px;
 }
 
 .booking {

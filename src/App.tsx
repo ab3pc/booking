@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "./store/store";
 import { toggleAuth } from "./store/authorization-slice/authorization-slice";
 
 export default function App() {
-   const {auth} = useAppSelector(state => state.authorization);
+  let {auth} = useAppSelector(state => state.authorization);
   const dispatch = useAppDispatch();
   const {fullName} = useAppSelector(state => state.authorization)
     
@@ -18,13 +18,15 @@ export default function App() {
       dispatch(toggleAuth(true))
     }
    }, [])
+  const token = localStorage.getItem('access_token')
+  if(token) auth = true
 
 
   return (
     <>
       <Header fullName={fullName} isAuth={auth} />
          <Routes>
-        <Route path="/" element={auth ? <Main /> : <SignIn/>} />
+        <Route path="*" element={auth ? <Main /> : <SignIn/>} />
         <Route path="/sign-in" element={auth ? <Navigate to="/" /> : <SignIn/>} />
         <Route path="/sign-up" element={auth ? <Navigate to="/" /> : <SignUp />} />
         <Route path="/trip/:tripId" element={auth ? <Trip /> : <Navigate to="/" />} />
